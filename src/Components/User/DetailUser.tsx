@@ -1,5 +1,5 @@
 import React from 'react'
-import UserImg from '../../img/User.jpg'
+import UserImg from '../../img/img2.jpg'
 
 
 const DetailUser = () => {
