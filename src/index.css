@@ -12,6 +12,10 @@
   height: 100vh;
 }
 
+.grid-config {
+  grid-template-columns: 260px 1fr;
+}
+
 .grid-area {
   grid-area: header;
 }

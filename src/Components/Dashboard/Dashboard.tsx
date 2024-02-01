@@ -4,7 +4,7 @@ import { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill }
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line }
   from 'recharts';
 
-const Home = () => {
+const Dashboard = () => {
   const data = [
     {
       name: 'Page A',
@@ -137,4 +137,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Dashboard

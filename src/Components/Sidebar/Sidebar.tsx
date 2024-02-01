@@ -22,37 +22,37 @@ const Sidebar = ({ openSidebarToggle }: Props) => {
 
       <ul className='p-0 list-none'>
         <li className='p-5 text-base hover:bg-[#006e8c] cursor-pointer'>
-          <a href="" className='no-underline text-gray-100 '>
+          <Link to='/dasboard' className='no-underline text-gray-100 inline-block w-full h-full '>
             <BsGrid1X2Fill className='inline-block align-middle leading-3 text-[20px]' /> Dashboard
-          </a>
+          </Link>
         </li>
         <li className='p-5 text-base hover:bg-[#006e8c] cursor-pointer'>
-          <a href="" className='no-underline text-gray-100 ' >
+          <a href="" className='no-underline text-gray-100 inline-block w-full h-full ' >
             <BsFillArchiveFill className='inline-block align-middle leading-3 text-[20px]' /> Products
           </a>
         </li>
         <li className='p-5 text-base hover:bg-[#006e8c] cursor-pointer'>
-          <a href="" className='no-underline text-gray-100 '>
+          <a href="" className='no-underline text-gray-100 inline-block w-full h-full '>
             <BsFillGrid3X3GapFill className='inline-block align-middle leading-3 text-[20px]' /> Categories
           </a>
         </li>
         <li className='p-5 text-base hover:bg-[#006e8c] cursor-pointer'>
-          <Link to="/detailuser" className='no-underline text-gray-100 '>
-            <BsPeopleFill className='inline-block align-middle leading-3 text-[20px]' /> Customers
+          <Link to="/detailuser" className='no-underline text-gray-100 inline-block w-full h-full '>
+            <BsPeopleFill className='inline-block align-middle leading-3 text-[20px]' /> UserDetail
           </Link>
         </li>
         <li className='p-5 text-base hover:bg-[#006e8c] cursor-pointer'>
-          <a href="" className='no-underline text-gray-100 '>
+          <a href="" className='no-underline text-gray-100 inline-block w-full h-full '>
             <BsListCheck className='inline-block align-middle leading-3 text-[20px]' /> Inventory
           </a>
         </li>
         <li className='p-5 text-base hover:bg-[#006e8c] cursor-pointer'>
-          <a href="" className='no-underline text-gray-100 '>
+          <a href="" className='no-underline text-gray-100 inline-block w-full h-full '>
             <BsMenuButtonWideFill className='inline-block align-middle leading-3 text-[20px]' /> Reports
           </a>
         </li>
         <li className='p-5 text-base hover:bg-[#006e8c] cursor-pointer'>
-          <a href="" className='no-underline text-gray-100 '>
+          <a href="" className='no-underline text-gray-100 inline-block w-full h-full '>
             <BsFillGearFill className='inline-block align-middle leading-3 text-[20px]' /> Setting
           </a>
         </li>
