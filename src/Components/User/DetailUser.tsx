@@ -1,5 +1,5 @@
 import React from 'react'
-import UserImg from '../../img/img2.jpg'
+import UserImg from '../../img/IMG_0783.jpg'
 
 
 const DetailUser = () => {
@@ -13,6 +13,24 @@ const DetailUser = () => {
             <div className='text-sm text-gray-500 mb-3'>JPG or PNG no larger than 5 MB</div>
             <button type='button' className='inline-block font-semibold text-center select-none border p-2 rounded-md text-white bg-[#0d6efd] border-blue-600 hover:bg-[#3764a8]'>Upload new image</button>
           </div>
+        </div>
+        <div className='relative flex flex-col bg-white bg-clip-border border border-gray-100 rounded-md shadow-md mt-3'>
+          <div className='text-sm font-semibold p-4 bg-gray-200 border border-gray-300 border-b-2'>Change Password</div>
+          <form action="">
+            <div className=' p-3'>
+              <label htmlFor="" className='text-sm text-gray-500 mb-2 '>Current Password</label>
+              <input type="password" className='block w-full h-[45px] p-3 font-semibold text-sm text-gray-400 bg-white border border-gray-400 rounded-md outline-none' />
+            </div>
+            <div className=' p-3'>
+              <label htmlFor="" className='text-sm text-gray-500 mb-2 '>New Password</label>
+              <input type="password" className='block w-full h-[45px] p-3 font-semibold text-sm text-gray-400 bg-white border border-gray-400 rounded-md outline-none' />
+            </div>
+            <div className=' p-3'>
+              <label htmlFor="" className='text-sm text-gray-500 mb-2 '>Confirm New Password</label>
+              <input type="password" className='block w-full h-[45px] p-3 font-semibold text-sm text-gray-400 bg-white border border-gray-400 rounded-md outline-none' />
+            </div>
+            <button type='button' className='inline-block font-semibold text-center mt-4 ml-3 mb-4 select-none border p-2 rounded-md text-white bg-[#0d6efd] border-blue-600 hover:bg-[#3764a8]'>Save changes</button>
+          </form>
         </div>
       </div>
       <div className='flex-shrink-0 w-[66%] p-2'>
