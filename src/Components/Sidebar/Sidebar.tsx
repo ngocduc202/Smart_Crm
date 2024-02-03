@@ -37,8 +37,8 @@ const Sidebar = ({ openSidebarToggle }: Props) => {
           </a>
         </li>
         <li className='p-5 text-base hover:bg-[#006e8c] cursor-pointer'>
-          <Link to="/detailuser" className='no-underline text-gray-100 inline-block w-full h-full '>
-            <BsPeopleFill className='inline-block align-middle leading-3 text-[20px]' /> UserDetail
+          <Link to="/usermanager" className='no-underline text-gray-100 inline-block w-full h-full '>
+            <BsPeopleFill className='inline-block align-middle leading-3 text-[20px]' /> UserManager
           </Link>
         </li>
         <li className='p-5 text-base hover:bg-[#006e8c] cursor-pointer'>
