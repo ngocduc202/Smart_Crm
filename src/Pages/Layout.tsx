@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import Header from '../Components/Header/Header'
 import Sidebar from '../Components/Sidebar/Sidebar'
 import clsx from 'clsx'
+import { useNavigate } from 'react-router-dom'
+import { getAccessToken } from '../Util/GetAccessToken'
+import { useEffect } from 'react'
 interface LayoutProps {
   children: React.ReactNode;
   style: string
@@ -13,12 +16,30 @@ const Layout: React.FC<LayoutProps> = ({ children, style }) => {
     setOpenSidebarToggle(!openSidebarToggle)
   }
 
+  const navigate = useNavigate()
+  const [check, setCheck] = useState(false)
+
+  useEffect(() => {
+    const AccessToken = getAccessToken('access_token');
+
+
+    if (!AccessToken) {
+      navigate('/login')
+    } else {
+      setCheck(true)
+    }
+  }, []);
+
   return (
-    <div className={clsx('grid-container', style)}>
-      <Header OpenSidebar={OpenSidebar} />
-      <Sidebar openSidebarToggle={openSidebarToggle} />
-      {children}
-    </div>
+    <>
+      {check ? (
+        <div className={clsx('grid-container', style)}>
+          <Header OpenSidebar={OpenSidebar} />
+          <Sidebar openSidebarToggle={openSidebarToggle} />
+          {children}
+        </div>
+      ) : null}
+    </>
   )
 }
 
