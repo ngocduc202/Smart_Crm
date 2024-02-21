@@ -121,18 +121,13 @@ const Login = () => {
                   // Registration-related input fields
                   <>
                     <input type="text"
-                      className='w-full border h-[55px] border-gray-300 rounded-md p-2 outline-none mt-4'
-                      placeholder='Name'
-                      onChange={(e) => handleChange(e, 'name')} />
-                    <input type="text"
                       className='w-full border h-[55px] border-gray-300 rounded-md p-2 outline-none'
                       placeholder='Email'
                       onChange={(e) => handleChange(e, 'email')} />
-                    <input
-                      type="phone"
+                    <input type="text"
                       className='w-full border h-[55px] border-gray-300 rounded-md p-2 outline-none mt-4'
-                      placeholder='Phone Number'
-                      onChange={(e) => handleChange(e, 'phone')} />
+                      placeholder='Name'
+                      onChange={(e) => handleChange(e, 'name')} />
                     <input type="text"
                       className='w-full border h-[55px] border-gray-300 rounded-md p-2 outline-none mt-4'
                       placeholder='Username'
@@ -142,6 +137,11 @@ const Login = () => {
                       className='w-full border h-[55px] border-gray-300 rounded-md p-2 outline-none mt-4'
                       placeholder='Passsword'
                       onChange={(e) => handleChange(e, 'password')} />
+                    <input
+                      type="phone"
+                      className='w-full border h-[55px] border-gray-300 rounded-md p-2 outline-none mt-4 mb-6'
+                      placeholder='Phone Number'
+                      onChange={(e) => handleChange(e, 'phone')} />
                   </>
                 )}
               {isLoginMode && <div className='mb-4 flex items-center flex-wrap justify-between'>
