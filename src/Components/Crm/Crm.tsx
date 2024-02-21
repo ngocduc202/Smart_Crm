@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { jwtDecode } from 'jwt-decode';
+import CrmDetail from "./CrmDetail";
 
 
 const Crm = () => {
 
     const [crms, setCrms] = useState([])
     const [isAdmin, setIsAdmin] = useState(false)
+
+    const [isOpen, setIsOpen] = useState(false)
+    const [idCrm, setIdCrm] = useState(0)
 
 
     useEffect(() => {
@@ -41,53 +45,78 @@ const Crm = () => {
     }, [])
 
 
-    return (
-        <main className='main-container'>
-            <div className='flex justify-between mb-8'>
-                <h3 className='text-2xl text-gray-800'>Crm</h3>
-            </div>
+    const handleOpen = (id: number) => {
+        setIsOpen(true)
+        setIdCrm(id)
+    }
 
-            <div className="overflow-x-auto">
-                <table className="table-auto w-full text-gray-800">
+    // useEffect(() => {
+    //     if (crmsDetail === null) {
+    //         // Nếu crmsDetail vẫn là null, có thể hiển thị một thông báo loading hoặc ẩn modal
+    //         console.log('Waiting for data...');
+    //         return;
+    //     }
+
+    //     // Nếu crmsDetail đã có dữ liệu, thực hiện các hành động cần thiết khi dữ liệu đã sẵn sàng
+    //     console.log('crmsDetail:', crmsDetail);
+    // }, [crmsDetail]);
+
+    // useEffect(() => {
+    // })
+
+    const handleClose = () => {
+        setIsOpen(false)
+    }
+
+
+
+
+    return (
+        <div className='w-full px-4 h-[500px]'>
+            <div className='flex items-center justify-center m-5'>
+                <h2 className='text-2xl font-bold'>CRM</h2>
+            </div>
+            <div>
+                <table className='min-w-[1000px] w-full shadow-lg mb-3 text-[#212529] border-collapse text-center border-t-2 border-[#eceffa] '>
                     <thead>
-                        <tr>
-                            <th className="border px-4 py-2">Tên khách hàng</th>
-                            <th className="border px-4 py-2">Số điện thoại</th>
-                            <th className="border px-4 py-2">Tiêu đề</th>
-                            <th className="border px-4 py-2">Ngày bắt đầu</th>
-                            <th className="border px-4 py-2">Ngày kết thúc</th>
-                            <th className="border px-4 py-2">Hành động</th>
+                        <tr className='bg-white border-b-2 border-[#eceffa]'>
+                            <th className='border-none p-[30px] text-sm font-medium text-gray-600 '>ID</th>
+                            <th className='border-none p-[30px] text-sm font-medium text-gray-600 '>Tên khách hàng</th>
+                            <th className='border-none p-[30px] text-sm font-medium text-gray-600'>Tiêu đề</th>
+                            <th className='border-none p-[30px] text-sm font-medium text-gray-600'>Ngày bắt đầu</th>
+                            <th className='border-none p-[30px] text-sm font-medium text-gray-600'>Ngày kết thúc</th>
+                            <th className='border-none p-[30px] text-sm font-medium text-gray-600'>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
-
                         {crms.map(crm => (
-                            <tr key={crm['id']}>
-                                <td className="border px-4 py-2">{crm['customerName']}</td>
-                                <td className="border px-4 py-2">{crm['phoneNumber']}</td>
-                                <td className="border px-4 py-2">{crm['title']}</td>
-                                <td className="border px-4 py-2">{crm['startDate']}</td>
-                                <td className="border px-4 py-2">{crm['endDate']}</td>
-                                <td className="border px-4 py-2">
+                            <tr key={crm['id']} className='bg-white border-b-2 border-[#eceffa]'>
+                                <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>{crm['id']}</td>
+                                <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>{crm['phoneNumber']}</td>
+                                <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>{crm['title']}</td>
+                                <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>{crm['startDate']}</td>
+                                <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>{crm['endDate']}</td>
+                                <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>
                                     <div className="flex justify-center items-center h-auto space-x-4">
-                                        <button className="bg-blue-500 text-white font-bold py-1 px-2 rounded">
+                                        <button onClick={() => { handleOpen(crm['id']) }} className="w-[80px] bg-blue-500 text-white font-bold py-1 px-4 rounded">
                                             Chi tiết
                                         </button>
-                                        <button className="bg-yellow-500 text-white font-bold py-1 px-2 rounded">
+                                        <button className="bg-yellow-500 text-white font-bold py-1 px-4 rounded">
                                             Sửa
                                         </button>
-                                        {isAdmin ? <button className="bg-red-500 text-white font-bold py-1 px-2 rounded">
+                                        {isAdmin ? <button className="bg-red-500 text-white font-bold py-1 px-4 rounded">
                                             Xóa
                                         </button> : ' '}
                                     </div>
                                 </td>
                             </tr>
                         ))}
-
                     </tbody>
                 </table>
+                <CrmDetail isOpen={isOpen} onClose={handleClose} idCrm={idCrm} />
             </div>
-        </main>
+        </div>
+
     )
 }
 
