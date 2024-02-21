@@ -6,7 +6,7 @@ const UserManagerPage = () => {
   return (
     <Layout
       children={<UserManager />}
-      style='grid-config'
+      style=''
     />
   )
 }
