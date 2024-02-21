@@ -5,6 +5,7 @@ import clsx from 'clsx'
 import { useNavigate } from 'react-router-dom'
 import { getAccessToken } from '../Util/GetAccessToken'
 import { useEffect } from 'react'
+import { Outlet } from 'react-router-dom'
 interface LayoutProps {
   children: React.ReactNode;
   style: string
