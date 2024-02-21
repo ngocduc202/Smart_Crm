@@ -6,6 +6,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import Cookies from 'js-cookie';
 import { useEffect } from 'react';
+import SaveToken from '../Util/SaveToken';
 
 const Login = () => {
   const [isLoginMode, setIsLoginMode] = useState(true);
@@ -45,6 +46,9 @@ const Login = () => {
       if (response.status === 200) {
         const accessToken = await response.data.token
         setAccessToken(accessToken)
+
+        const roles = await response.data.listRoles
+        SaveToken(accessToken, roles)
         // const adminData = response.data.body.user
         // setDataInSessionStorage(JSON.stringify(adminData))
         navigate('/dasboard')

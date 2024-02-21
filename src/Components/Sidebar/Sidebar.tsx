@@ -27,8 +27,8 @@ const Sidebar = ({ openSidebarToggle }: Props) => {
           </Link>
         </li>
         <li className='p-5 text-base hover:bg-[#006e8c] cursor-pointer'>
-          <a href="" className='no-underline text-gray-100 inline-block w-full h-full ' >
-            <BsFillArchiveFill className='inline-block align-middle leading-3 text-[20px]' /> Products
+          <a href="/crm" className='no-underline text-gray-100 inline-block w-full h-full ' >
+            <BsFillArchiveFill className='inline-block align-middle leading-3 text-[20px]' /> Crms
           </a>
         </li>
         <li className='p-5 text-base hover:bg-[#006e8c] cursor-pointer'>
