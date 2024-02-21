@@ -6,7 +6,7 @@ const CrmPage = () => {
     return (
         <Layout
             children={<Crm />}
-            style=''
+            style='grid-config'
         />
     )
 }

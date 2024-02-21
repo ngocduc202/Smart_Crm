@@ -12,7 +12,7 @@ interface Props {
 
 const Sidebar = ({ openSidebarToggle }: Props) => {
   return (
-    <aside id="sidebar" className={openSidebarToggle ? 'inline absolute z-20' : ''}>
+    <aside id="sidebar" className={openSidebarToggle ? 'inline fixed z-20 min-h-screen' : ''}>
       <div className="flex justify-between items-center p-5 md:p-8">
         <div className='text-lg font-bold'>
           <img src={Logo} alt="" className='object-contain' />
