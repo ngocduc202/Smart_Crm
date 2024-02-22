@@ -76,48 +76,50 @@ const Crm = () => {
 
 
     return (
-        <div className='w-full px-4 h-[500px]'>
-            <div className='flex items-center justify-center m-5'>
-                <h2 className='text-2xl font-bold'>CRM</h2>
-            </div>
-            <div>
-                <table className='min-w-[1000px] w-full shadow-lg mb-3 text-[#212529] border-collapse text-center border-t-2 border-[#eceffa] '>
-                    <thead>
-                        <tr className='bg-white border-b-2 border-[#eceffa]'>
-                            <th className='border-none p-[30px] text-sm font-medium text-gray-600 '>ID</th>
-                            <th className='border-none p-[30px] text-sm font-medium text-gray-600 '>Tên khách hàng</th>
-                            <th className='border-none p-[30px] text-sm font-medium text-gray-600'>Tiêu đề</th>
-                            <th className='border-none p-[30px] text-sm font-medium text-gray-600'>Ngày bắt đầu</th>
-                            <th className='border-none p-[30px] text-sm font-medium text-gray-600'>Ngày kết thúc</th>
-                            <th className='border-none p-[30px] text-sm font-medium text-gray-600'>Hành động</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {crms && !isLoading ? crms.map(crm => (
-                            <tr key={crm['id']} className='bg-white border-b-2 border-[#eceffa]'>
-                                <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>{crm['id']}</td>
-                                <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>{crm['customerName']}</td>
-                                <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>{crm['title']}</td>
-                                <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>{crm['startDate']}</td>
-                                <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>{crm['endDate']}</td>
-                                <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>
-                                    <div className="flex justify-center items-center h-auto space-x-4">
-                                        <button onClick={() => { handleOpen(crm['id']) }} className="w-[80px] bg-blue-500 text-white font-bold py-1 px-4 rounded">
-                                            Chi tiết
-                                        </button>
-                                        <button className="bg-yellow-500 text-white font-bold py-1 px-4 rounded">
-                                            Sửa
-                                        </button>
-                                        {isAdmin ? <button className="bg-red-500 text-white font-bold py-1 px-4 rounded">
-                                            Xóa
-                                        </button> : ' '}
-                                    </div>
-                                </td>
+        <div className="main-container">
+            <div className='w-full px-4 h-[500px]'>
+                <div className='flex items-center justify-center m-5'>
+                    <h2 className='text-2xl font-bold text-gray-800'>CRM</h2>
+                </div>
+                <div>
+                    <table className='min-w-[1000px] w-full shadow-lg mb-3 text-[#212529] border-collapse text-center border-t-2 border-[#eceffa] '>
+                        <thead>
+                            <tr className='bg-white border-b-2 border-[#eceffa]'>
+                                <th className='border-none p-[30px] text-sm font-medium text-gray-600 '>ID</th>
+                                <th className='border-none p-[30px] text-sm font-medium text-gray-600 '>Tên khách hàng</th>
+                                <th className='border-none p-[30px] text-sm font-medium text-gray-600'>Tiêu đề</th>
+                                <th className='border-none p-[30px] text-sm font-medium text-gray-600'>Ngày bắt đầu</th>
+                                <th className='border-none p-[30px] text-sm font-medium text-gray-600'>Ngày kết thúc</th>
+                                <th className='border-none p-[30px] text-sm font-medium text-gray-600'>Hành động</th>
                             </tr>
-                        )) : <td>loading...</td>}
-                    </tbody>
-                </table>
-                <CrmDetail isOpen={isOpen} onClose={handleClose} idCrm={idCrm} />
+                        </thead>
+                        <tbody>
+                            {crms && !isLoading ? crms.map(crm => (
+                                <tr key={crm['id']} className='bg-white border-b-2 border-[#eceffa]'>
+                                    <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>{crm['id']}</td>
+                                    <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>{crm['customerName']}</td>
+                                    <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>{crm['title']}</td>
+                                    <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>{crm['startDate']}</td>
+                                    <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>{crm['endDate']}</td>
+                                    <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>
+                                        <div className="flex justify-center items-center h-auto space-x-4">
+                                            <button onClick={() => { handleOpen(crm['id']) }} className="w-[80px] bg-blue-500 text-white font-bold py-1 px-4 rounded">
+                                                Chi tiết
+                                            </button>
+                                            <button className="bg-yellow-500 text-white font-bold py-1 px-4 rounded">
+                                                Sửa
+                                            </button>
+                                            {isAdmin ? <button className="bg-red-500 text-white font-bold py-1 px-4 rounded">
+                                                Xóa
+                                            </button> : ' '}
+                                        </div>
+                                    </td>
+                                </tr>
+                            )) : <td>loading...</td>}
+                        </tbody>
+                    </table>
+                    <CrmDetail isOpen={isOpen} onClose={handleClose} idCrm={idCrm} />
+                </div>
             </div>
         </div>
 
