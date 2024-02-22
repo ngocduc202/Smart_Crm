@@ -50,6 +50,8 @@ const CrmDetail = ({ isOpen, onClose, idCrm }: Props) => {
         e.stopPropagation();
     };
 
+    console.log(crmsDetail[0])
+
     if (!isOpen) return null;
     return (
         <div onClick={onClose} className="fixed inset-0 flex items-center justify-center z-50">
@@ -67,6 +69,7 @@ const CrmDetail = ({ isOpen, onClose, idCrm }: Props) => {
                                     <th className='px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider '>ID</th>
                                     <th className='px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Tiêu đề</th>
                                     <th className='px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Mô tả</th>
+                                    <th className='px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Ảnh</th>
                                     <th className='px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Ngày bắt đầu</th>
                                     <th className='px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Ngày kết thúc</th>
                                 </tr>
@@ -77,6 +80,13 @@ const CrmDetail = ({ isOpen, onClose, idCrm }: Props) => {
                                         <td className='px-6 py-4 whitespace-nowrap'>{crmsDetail[0].id}</td>
                                         <td className='px-6 py-4 whitespace-nowrap'>{crmsDetail[0].title}</td>
                                         <td className='px-6 py-4 whitespace-normal max-w-[200px]'>{crmsDetail[0].description}</td>
+                                        <td className='px-6 py-4 whitespace-normal max-w-[200px]'>
+                                            <div className='flex flex-col gap-1'>
+                                                {crmsDetail[0].crmFile.map((file) => (
+                                                    <span>{file.filename}</span>
+                                                ))}
+                                            </div>
+                                        </td>
                                         <td className='px-6 py-4 whitespace-nowrap'>{crmsDetail[0].startDate}</td>
                                         <td className='px-6 py-4 whitespace-nowrap'>{crmsDetail[0].endDate}</td>
                                     </tr>

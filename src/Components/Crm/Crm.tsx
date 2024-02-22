@@ -92,7 +92,7 @@ const Crm = () => {
                         {crms.map(crm => (
                             <tr key={crm['id']} className='bg-white border-b-2 border-[#eceffa]'>
                                 <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>{crm['id']}</td>
-                                <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>{crm['phoneNumber']}</td>
+                                <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>{crm['customerName']}</td>
                                 <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>{crm['title']}</td>
                                 <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>{crm['startDate']}</td>
                                 <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>{crm['endDate']}</td>
