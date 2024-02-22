@@ -90,7 +90,7 @@ const CrmDetail = ({ isOpen, onClose, idCrm }: Props) => {
                                         <td className='px-6 py-4 whitespace-nowrap'>{crmsDetail[0].startDate}</td>
                                         <td className='px-6 py-4 whitespace-nowrap'>{crmsDetail[0].endDate}</td>
                                     </tr>
-                                    : <td colSpan={5}>loading...</td>
+                                    : <td colSpan={6}>loading...</td>
                                 }
 
                             </tbody>
