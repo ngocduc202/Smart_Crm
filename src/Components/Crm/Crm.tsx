@@ -11,6 +11,7 @@ const Crm = () => {
 
     const [isOpen, setIsOpen] = useState(false)
     const [idCrm, setIdCrm] = useState(0)
+    const [isLoading, setisLoading] = useState(true)
 
 
     useEffect(() => {
@@ -32,13 +33,16 @@ const Crm = () => {
                         },
                     });
                     setCrms(response.data)
+                    setisLoading(false)
                 } else {
                     console.log('Token not found');
+                    setisLoading(false)
                 }
 
 
             } catch (error) {
                 console.error('Error fetching CRM data:', error);
+                setisLoading(false)
             }
         };
         fetchData()
@@ -89,7 +93,7 @@ const Crm = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {crms.map(crm => (
+                        {crms && !isLoading ? crms.map(crm => (
                             <tr key={crm['id']} className='bg-white border-b-2 border-[#eceffa]'>
                                 <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>{crm['id']}</td>
                                 <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>{crm['customerName']}</td>
@@ -110,7 +114,7 @@ const Crm = () => {
                                     </div>
                                 </td>
                             </tr>
-                        ))}
+                        )) : <td>loading...</td>}
                     </tbody>
                 </table>
                 <CrmDetail isOpen={isOpen} onClose={handleClose} idCrm={idCrm} />
