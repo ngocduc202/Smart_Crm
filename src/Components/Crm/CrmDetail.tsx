@@ -14,20 +14,24 @@ interface Props {
 const CrmDetail = ({ isOpen, onClose, idCrm }: Props) => {
 
     const [crmsDetail, setCrmsDetail] = useState<CrmModel[]>([])
+    const [isLoading, setIsLoading] = useState<boolean>(true)
 
     useEffect(() => {
         const fetchCrmDetail = async () => {
             try {
                 const token: any = localStorage.getItem('token');
+                setIsLoading(true);
                 const response = await axios.get(`http://localhost:8082/api/crms/${idCrm}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
                 });
                 setCrmsDetail(response.data);
+                setIsLoading(false);
 
             } catch (error) {
                 console.log('Error fetching CRM detail:', error);
+                setIsLoading(false);
             }
         };
 
@@ -36,11 +40,11 @@ const CrmDetail = ({ isOpen, onClose, idCrm }: Props) => {
         }
     }, [idCrm]);
 
-    useEffect(() => {
-        if (crmsDetail[0]) {
-            console.log(crmsDetail[0].customerName)
-        }
-    }, [crmsDetail])
+    // useEffect(() => {
+    //     if (crmsDetail[0]) {
+    //         console.log(crmsDetail[0].customerName)
+    //     }
+    // }, [crmsDetail])
 
     const handleModalClick = (e: React.MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
@@ -50,8 +54,8 @@ const CrmDetail = ({ isOpen, onClose, idCrm }: Props) => {
     return (
         <div onClick={onClose} className="fixed inset-0 flex items-center justify-center z-50">
             {/* Overlay */}
-            <div onClick={handleModalClick} className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
-                <div className='bg-gradient-to-r from-[#07bd89] to-[#006e8c] border overflow-auto rounded-md outline-none p-[30px] w-[80%] h-[80%]'>
+            <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
+                <div onClick={handleModalClick} className='bg-gradient-to-r from-[#07bd89] to-[#006e8c] border overflow-auto rounded-md outline-none p-[30px] w-[80%] h-[80%]'>
                     <div className="relative">
                         <div className="absolute top-0 right-0 mt-2 mr-2">
                             <FontAwesomeIcon onClick={onClose} className="p-2 text-3xl text-white cursor-pointer" icon={faXmark} size="lg" />
@@ -68,7 +72,7 @@ const CrmDetail = ({ isOpen, onClose, idCrm }: Props) => {
                                 </tr>
                             </thead>
                             <tbody className='bg-white divide-y divide-gray-200'>
-                                {crmsDetail[0] ?
+                                {crmsDetail[0] && !isLoading ?
                                     <tr>
                                         <td className='px-6 py-4 whitespace-nowrap'>{crmsDetail[0].id}</td>
                                         <td className='px-6 py-4 whitespace-nowrap'>{crmsDetail[0].title}</td>
@@ -76,7 +80,7 @@ const CrmDetail = ({ isOpen, onClose, idCrm }: Props) => {
                                         <td className='px-6 py-4 whitespace-nowrap'>{crmsDetail[0].startDate}</td>
                                         <td className='px-6 py-4 whitespace-nowrap'>{crmsDetail[0].endDate}</td>
                                     </tr>
-                                    : <>loading...</>
+                                    : <td colSpan={5}>loading...</td>
                                 }
 
                             </tbody>
