@@ -48,7 +48,10 @@ const Login = () => {
         setAccessToken(accessToken)
 
         const roles = await response.data.listRoles
-        SaveToken(accessToken, roles)
+        const userid = await response.data.id
+        const username = await response.data.username
+        const avatar = await response.data.avatar
+        SaveToken(accessToken, roles, userid, username, avatar)
         // const adminData = response.data.body.user
         // setDataInSessionStorage(JSON.stringify(adminData))
         navigate('/dasboard')
