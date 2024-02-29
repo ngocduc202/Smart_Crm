@@ -3,6 +3,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { CrmModel } from './CrmModel';
+import handleModalClick from '../../Util/HandleModalClick';
 
 
 interface Props {
@@ -40,18 +41,6 @@ const CrmDetail = ({ isOpen, onClose, idCrm }: Props) => {
         }
     }, [idCrm]);
 
-    // useEffect(() => {
-    //     if (crmsDetail[0]) {
-    //         console.log(crmsDetail[0].customerName)
-    //     }
-    // }, [crmsDetail])
-
-    const handleModalClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        e.stopPropagation();
-    };
-
-    console.log(crmsDetail[0])
-
     if (!isOpen) return null;
     return (
         <div onClick={onClose} className="fixed inset-0 flex items-center justify-center z-50">
@@ -62,7 +51,8 @@ const CrmDetail = ({ isOpen, onClose, idCrm }: Props) => {
                         <div className="absolute top-0 right-0 mt-2 mr-2">
                             <FontAwesomeIcon onClick={onClose} className="p-2 text-3xl text-white cursor-pointer" icon={faXmark} size="lg" />
                         </div>
-                        <h1 className="text-2xl text-center text-white">Crm của {crmsDetail[0] ? crmsDetail[0].customerName : <>loading...</>}</h1>
+                        {crmsDetail[0] && !isLoading ? <h1 className="text-2xl text-center text-white">Crm của {crmsDetail[0].customerName} </h1> :
+                            <h1 className="text-2xl text-center text-white">loading...</h1>}
                         <table className="min-w-full mt-[15px]">
                             <thead>
                                 <tr>
@@ -77,20 +67,20 @@ const CrmDetail = ({ isOpen, onClose, idCrm }: Props) => {
                             <tbody className='bg-white divide-y divide-gray-200'>
                                 {crmsDetail[0] && !isLoading ?
                                     <tr>
-                                        <td className='px-6 py-4 whitespace-nowrap'>{crmsDetail[0].id}</td>
-                                        <td className='px-6 py-4 whitespace-nowrap'>{crmsDetail[0].title}</td>
-                                        <td className='px-6 py-4 whitespace-normal max-w-[200px]'>{crmsDetail[0].description}</td>
-                                        <td className='px-6 py-4 whitespace-normal max-w-[200px]'>
+                                        <td className='px-6 py-4 whitespace-normal text-gray-500'>{crmsDetail[0].id}</td>
+                                        <td className='px-6 py-4 whitespace-normal text-gray-500'>{crmsDetail[0].title}</td>
+                                        <td className='px-6 py-4 whitespace-normal max-w-[200px] text-gray-500'>{crmsDetail[0].description}</td>
+                                        <td className='px-6 py-4 whitespace-normal max-w-[200px] text-gray-500'>
                                             <div className='flex flex-col gap-1'>
                                                 {crmsDetail[0].crmFile.map((file) => (
-                                                    <span>{file.filename}</span>
+                                                    <a href={file.filename}><img src={file.filename} alt="" className="w-full h-full object-contain" /></a>
                                                 ))}
                                             </div>
                                         </td>
-                                        <td className='px-6 py-4 whitespace-nowrap'>{crmsDetail[0].startDate}</td>
-                                        <td className='px-6 py-4 whitespace-nowrap'>{crmsDetail[0].endDate}</td>
+                                        <td className='px-6 py-4 whitespace-normal text-gray-500'>{crmsDetail[0].startDate}</td>
+                                        <td className='px-6 py-4 whitespace-normal text-gray-500'>{crmsDetail[0].endDate}</td>
                                     </tr>
-                                    : <td colSpan={6}>loading...</td>
+                                    : <td className='px-6 py-4 whitespace-normal text-gray-500' colSpan={6}>loading...</td>
                                 }
 
                             </tbody>
