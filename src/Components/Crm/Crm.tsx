@@ -144,7 +144,7 @@ const Crm = () => {
                     <button onClick={() => handleOpen(0, 'create')} className="w-[100px] bg-blue-500 text-white font-bold py-1 px-4 rounded">Tạo Crm</button>
                 </div>
 
-                {listData ?
+                {isAdmin && listData ?
                     <div className='flex text-gray-600 mb-5 gap-5'>
                         <div className="mb-4">
                             <label className="block text-gray-600 text-sm font-bold mb-2" htmlFor="crmFile">
@@ -153,11 +153,14 @@ const Crm = () => {
                             <div className='flex items-center justify-between w-full'>
                                 <select className="p-[9px] rounded border" id="mySelect" value={idValue} onChange={handleSelectChange}>
                                     <option value="">All</option>
-                                    {listData.map((data: any) => (
-                                        <option key={data['id']} value={data['id']}>
-                                            {data['id']}
-                                        </option>
-                                    ))}
+                                    {Array.from(new Set(listData.map((data: any) => data['userId'])))
+                                        .sort()
+                                        .map((uniqueUserId: string, index: number) => (
+                                            <option key={index} value={uniqueUserId}>
+                                                {uniqueUserId}
+                                            </option>
+                                        ))
+                                    }
                                 </select>
                             </div>
                         </div>
