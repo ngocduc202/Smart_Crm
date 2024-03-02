@@ -74,37 +74,6 @@ const DetailUser = () => {
   }, [])
 
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormUserData({ ...formUserData, [e.target.name]: e.target.value });
-  };
-
-  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormPassword({ ...formPassword, [e.target.name]: e.target.value });
-  };
-
-
-  const handleSubmitPassword = async () => {
-    if (formPassword.password !== formPassword.confirmPassword) {
-      Swal.fire('error', 'Mật khẩu không khớp', 'error');
-    } else {
-      try {
-        const response = await axios.put('http://localhost:8082/api/auth/users/changepassword', formPassword, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        if (response.status === 200) {
-          Swal.fire("Succes", response.data.message, "success").then(() => {
-            window.location.reload()
-          })
-        }
-      } catch (error: any) {
-        Swal.fire('error', error.response.data.message, 'error');
-      }
-    }
-  }
-
-
   useEffect(() => {
     const hasUserRole = formUserData?.listRoles?.some(role => role.roleName === "ROLE_USER");
     const hasAdminRole = formUserData?.listRoles?.some(role => role.roleName === "ROLE_ADMIN");
@@ -133,6 +102,15 @@ const DetailUser = () => {
     }
   }, [formUserData])
 
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormUserData({ ...formUserData, [e.target.name]: e.target.value });
+  };
+
+  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormPassword({ ...formPassword, [e.target.name]: e.target.value });
+  };
+
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = event.target;
     setIsChecked(prevState => ({
@@ -153,6 +131,29 @@ const DetailUser = () => {
 
     return rolesArray;
   };
+
+
+  const handleSubmitPassword = async () => {
+    if (formPassword.password !== formPassword.confirmPassword) {
+      Swal.fire('error', 'Mật khẩu không khớp', 'error');
+    } else {
+      try {
+        const response = await axios.put('http://localhost:8082/api/auth/users/changepassword', formPassword, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        if (response.status === 200) {
+          Swal.fire("Succes", response.data.message, "success").then(() => {
+            window.location.reload()
+          })
+        }
+      } catch (error: any) {
+        Swal.fire('error', error.response.data.message, 'error');
+      }
+    }
+  }
+
 
 
   const handleSaveChanges = async () => {
