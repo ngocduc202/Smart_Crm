@@ -4,6 +4,8 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import userimage from '../../img/user_image.png'
 import Swal from 'sweetalert2';
+import token from '../../Util/TokenStorage';
+import ReactLoading from 'react-loading';
 
 interface Props {
   isOpen: boolean;
@@ -40,11 +42,11 @@ const EditUser = ({ isOpen, onClose, idUser }: Props) => {
     phone: '',
     listRoles: []
   })
-
+  const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
+  // const token: any = localStorage.getItem('token');
 
   const fetchUseretail = async () => {
     try {
-      const token: any = localStorage.getItem('token');
       setIsLoading(true);
       const response = await axios.get(`http://localhost:8082/api/auth/admin/users/${idUser}`, {
         headers: {
@@ -64,7 +66,6 @@ const EditUser = ({ isOpen, onClose, idUser }: Props) => {
           });
         }
       }
-      console.log(formData)
       setIsLoading(false);
 
     } catch (error) {
@@ -128,6 +129,12 @@ const EditUser = ({ isOpen, onClose, idUser }: Props) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setSelectedFiles(e.target.files)
+    }
+  }
+
   const createRolesArray = () => {
     const rolesArray: ListRoles[] = [];
     rolesArray.push({ roleId: 2, roleName: 'ROLE_USER' });
@@ -141,21 +148,57 @@ const EditUser = ({ isOpen, onClose, idUser }: Props) => {
     return rolesArray;
   };
 
+  const handleFileUpload = async () => {
+    try {
+      // Kiểm tra xem đã chọn file hay chưa
+      if (selectedFiles && selectedFiles.length > 0) {
+        const formImage = new FormData();
+        const selectedFile = selectedFiles[0]; // Truy cập vào tệp tin đầu tiên
+        formImage.append('image', selectedFile);
+        const response = await axios.post('http://localhost:8082/api/upload/', formImage, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data'
+          },
+        });
+
+        if (response.status === 200) {
+          const imageURL = response?.data?.imageURL[0]; // Lấy URL của file đầu tiên
+          setFormData({ ...formData, avatar: imageURL });
+          Swal.fire('success', 'Tải lên thành công', 'success');
+        } else {
+          Swal.fire('error', 'Tải lên không thành công', 'error');
+        }
+      } else {
+        Swal.fire('error', 'Chưa chọn file', 'error');
+      }
+
+    } catch (error: any) {
+      Swal.fire('error', error.response.data.message, 'error');
+    }
+  };
+
   const handleSaveChanges = async () => {
     try {
       const token: any = localStorage.getItem('token');
       const rolesArray = createRolesArray();
       const finalFormData = { ...formData, listRoles: rolesArray };
-      const response = await axios.put(`http://localhost:8082/api/auth/admin/users/edit/${idUser}`, finalFormData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (response.status === 200) {
-        Swal.fire("Succes", response.data.message, "success").then(() => {
-          window.location.reload()
-        })
+      if (selectedFiles && formData.avatar.length === 0) {
+        Swal.fire('error', 'Chưa tải ảnh lên', 'error');
       }
+      else {
+        const response = await axios.put(`http://localhost:8082/api/auth/admin/users/edit/${idUser}`, finalFormData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.status === 200) {
+          Swal.fire("Succes", response.data.message, "success").then(() => {
+            window.location.reload()
+          })
+        }
+      }
+
       // Thực hiện các hành động cần thiết sau khi lưu thành công, ví dụ như hiển thị thông báo thành công, đóng modal, vv.
     } catch (error: any) {
       console.log('Error updating user:', error);
@@ -178,8 +221,9 @@ const EditUser = ({ isOpen, onClose, idUser }: Props) => {
                 </div>
                 <div className='flex flex-col justify-center gap-5'>
                   <div className='flex items-center justify-center gap-2'>
-                    <button className='bg-blue-600 text-white border font-semibold text-sm py-3 px-5 w-[150px] rounded-lg hover:opacity-80 transition duration-200 text-center'>CHỌN ẢNH MỚI</button>
-                    <button className='bg-blue-600 text-white border font-semibold text-sm py-3 px-5 w-[150px] rounded-lg hover:opacity-80 transition duration-200 text-center'>TẢI ẢNH LÊN</button>
+                    <label htmlFor="file" className='bg-blue-600 text-white border font-semibold text-sm py-3 px-5 w-[150px] cursor-pointer rounded-lg hover:opacity-80 transition duration-200 text-center'>CHỌN ẢNH MỚI</label>
+                    <input type="file" name='file' id='file' hidden onChange={handleFileChange} />
+                    <button onClick={handleFileUpload} className='bg-blue-600 text-white border font-semibold text-sm py-3 px-5 w-[150px] rounded-lg hover:opacity-80 transition duration-200 text-center'>TẢI ẢNH LÊN</button>
                   </div>
                   <p className='text-sm text-gray-700 '>Allowed JPG, GIF or PNG. Max size of 800K</p>
                 </div>
@@ -235,7 +279,7 @@ const EditUser = ({ isOpen, onClose, idUser }: Props) => {
             </div>
           </div>
           :
-          <span>...Loading</span>
+          <ReactLoading type={'spokes'} color={'#07bd89'} height={'4%'} width={'4%'} className='w-full min-h-screen flex items-center justify-center m-auto' />
         }
       </div>
     </div>

@@ -36,3 +36,73 @@
   padding: 20px 20px;
   color: rgba(255, 255, 255, 0.95);
 }
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #b2b2b2;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.before-custom {
+  border-color: transparent transparent #fff;
+}
+
+input[type="date"] {
+  background-color: #fff;
+  font-family: "Roboto Mono", monospace;
+  color: #888;
+  font-size: 14px;
+  border: 1px solid #0080ff;
+  outline: none;
+  border-radius: 5px;
+}
+
+::-webkit-calendar-picker-indicator {
+  background-color: #ffffff;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+#arrow::before {
+  content: "";
+  border-width: 16px 27px;
+  border-style: solid;
+  border-color: transparent transparent #fff;
+  position: absolute;
+  right: 83px;
+  top: -23px;
+}
+
+#arrow2::before {
+  content: "";
+  border-width: 11px 15px;
+  border-style: solid;
+  border-color: transparent transparent #fff;
+  position: absolute;
+  right: 7px;
+  top: -18px;
+}
+
+/* #arrow::after {
+  content: "";
+  display: block;
+  position: absolute;
+  right: 85px;
+  top: -28px;
+  width: 50px;
+  height: 25px;
+} */

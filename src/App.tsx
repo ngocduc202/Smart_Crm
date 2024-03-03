@@ -7,6 +7,7 @@ import DashboardPage from './Pages/DashboardPage';
 import UserManagerPage from './Pages/UserManagerPage';
 import DetailUserPage from './Pages/DetailUserPage';
 import CrmPage from './Pages/CrmPage';
+import NotificationsManagerPage from './Pages/NotificationsManagerPage';
 function App() {
   return (
     <Routes>
@@ -17,6 +18,7 @@ function App() {
       <Route path='/crm' element={<CrmPage />} />
       <Route path='/usermanager' element={<UserManagerPage />} />
       <Route path='/detailuser' element={<DetailUserPage />} />
+      <Route path='/notifications' element={<NotificationsManagerPage />} />
     </Routes>
   );
 }
