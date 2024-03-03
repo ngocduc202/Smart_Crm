@@ -9,19 +9,40 @@ import { TbLogout2 } from "react-icons/tb";
 import { IoSettingsOutline } from "react-icons/io5";
 import { Link, useNavigate } from 'react-router-dom';
 import { removeCookie } from '../../Util/GetAccessToken';
+import Notifications from '../Notifications/Notifications';
 interface Props {
   OpenSidebar: () => void;
 }
+
+interface Role {
+  roleId: number;
+  roleName: string;
+}
 const Header = ({ OpenSidebar }: Props) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isOpenNotifications, setIsOpenNotifications] = useState(false);
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
+  };
+  const toggleNotifications = () => {
+    setIsOpenNotifications(!isOpenNotifications);
   };
   const navigate = useNavigate()
   const username = localStorage.getItem("username");
   const avatar = localStorage.getItem("avatar");
   const rolesString = localStorage.getItem('roles');
-  const roles: string[] = rolesString ? JSON.parse(rolesString) : []
+  const roles: string[] = rolesString ? JSON.parse(rolesString) : [];
+  const getHighestRole = (): string => {
+    if (roles.includes('ROLE_ADMIN')) {
+      return "ADMIN";
+    }
+    else if (roles.includes('ROLE_MODERATOR')) {
+      return "MODERATOR";
+    }
+    else {
+      return "USER";
+    }
+  };
   const handleLogout = () => {
     removeCookie('access_token')
     navigate('/login')
@@ -37,18 +58,18 @@ const Header = ({ OpenSidebar }: Props) => {
           <BsSearch className='inline-block align-middle leading-3 text-[25px] h-2em cursor-pointer bg-white absolute right-6' color='black' /> */}
         </div>
         <div className='flex gap-5 items-center justify-center'>
-          <BsFillBellFill className='inline-block align-middle leading-3 text-[20px] cursor-pointer' color='white' />
+          <BsFillBellFill onClick={toggleNotifications} className='inline-block align-middle leading-3 text-[20px] cursor-pointer z-80' color='white' />
           <BsFillEnvelopeFill className='inline-block align-middle leading-3 text-[20px] cursor-pointer' color='white' />
           <div onClick={toggleDropdown} className='w-[40px] h-[40px] cursor-pointer relative after:absolute after:bottom-0 after:right-1 after:w-[10px] after:h-[10px] after:content-[""] after:rounded-[50%] after:bg-[#77e0a5]'><img src={avatar?.replace(/"/g, '') || ''} alt=""
             className='bg-cover bg-repeat w-full h-full bg-center rounded-full'
           /></div>
         </div>
-        <div className={`w-[15%] absolute bg-white border-gray-100 rounded-md shadow-md right-1 top-12 z-50  ${isDropdownOpen ? 'block' : 'hidden'}`}>
+        <div id='arrow2' className={`w-[15%] absolute bg-white border-gray-100 rounded-md shadow-md right-0 top-12 z-50 ${isDropdownOpen ? 'block' : 'hidden'}`}>
           <div className='w-full flex items-center gap-4 mt-3 border-b-1 border-[#eceffa]'>
-            <div className='w-[50px] h-[50px] ml-2'><img src={avatar?.replace(/"/g, '') || ''} alt="" className='bg-cover bg-repeat w-full h-full bg-center rounded-full' /></div>
+            <div className='w-[50px] h-[50px] ml-2 relative after:absolute after:bottom-0 after:right-1 after:w-[10px] after:h-[10px] after:content-[""] after:rounded-[50%] after:bg-[#77e0a5]'><img src={avatar?.replace(/"/g, '') || ''} alt="" className='bg-cover bg-repeat w-full h-full bg-center rounded-full ' /></div>
             <div className='flex flex-col justify-center '>
               <span className='text-[15px] font-medium'>{username?.replace(/"/g, '')}</span>
-              <span className='text-sm font-light'>{roles ? roles[0].replace("ROLE_", "") : ''}</span>
+              <span className='text-sm font-light'>{getHighestRole()}</span>
             </div>
           </div>
           <ul className='p-0 list-none mt-3 border-t border-gray-200'>
@@ -69,6 +90,7 @@ const Header = ({ OpenSidebar }: Props) => {
             </li>
           </ul>
         </div>
+        <Notifications isOpenNotifications={isOpenNotifications} />
       </div>
     </header>
   )

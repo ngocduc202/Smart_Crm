@@ -136,61 +136,66 @@ const Crm = () => {
 
     return (
         <div className="main-container">
-            <div className='w-full px-4 h-[500px]'>
-                <div className='flex items-center justify-center m-5'>
-                    <h2 className='text-2xl font-bold text-gray-800'>CRM</h2>
+            <div className='w-full px-4 h-[500px] mt-3'>
+                <div className='flex m-5'>
+                    <h2 className='text-2xl font-bold text-gray-800'>CRM MANAGER</h2>
                 </div>
-                <div className='flex justify-between m-5'>
-                    <button onClick={() => handleOpen(0, 'create')} className="w-[100px] bg-blue-500 text-white font-bold py-1 px-4 rounded">Tạo Crm</button>
-                </div>
+
 
                 {isAdmin && listData ?
-                    <div className='flex text-gray-600 mb-5 gap-5'>
-                        <div className="mb-4">
-                            <label className="block text-gray-600 text-sm font-bold mb-2" htmlFor="crmFile">
-                                UserId
-                            </label>
-                            <div className='flex items-center justify-between w-full'>
-                                <select className="p-[9px] rounded border" id="mySelect" value={idValue} onChange={handleSelectChange}>
-                                    <option value="">All</option>
-                                    {Array.from(new Set(listData.map((data: any) => data['userId'])))
-                                        .sort()
-                                        .map((uniqueUserId: string, index: number) => (
-                                            <option key={index} value={uniqueUserId}>
-                                                {uniqueUserId}
-                                            </option>
-                                        ))
-                                    }
-                                </select>
-                            </div>
+                    <div className="w-full flex items-center justify-between border border-gray-300 rounded-md shadow-md p-2 mb-2">
+
+                        <div className=' m-5'>
+                            <button onClick={() => handleOpen(0, 'create')} className="bg-white text-gray-700 border border-blue-500 font-semibold w-[100px] text-sm py-[6px] px-5 rounded hover:bg-blue-500 hover:text-white transition duration-200">Tạo Crm</button>
                         </div>
 
-                        <div className="mb-4">
-                            <label className="block text-gray-600 text-sm font-bold mb-2" htmlFor="crmFile">
-                                Ngày bắt đầu
-                            </label>
-                            <div className='flex items-center justify-between w-full'>
-                                <input
-                                    type="date"
-                                    id="startDate"
-                                    name="startDate"
-                                    onChange={handleChangeStartDate}
-                                    className="w-full px-3 py-2 border border-gray-300 text-black rounded"
-                                    multiple />
+                        <div className='flex text-gray-600 w-[60%]'>
+                            <div className=" w-[20%] flex items-center justify-center">
+                                <label className="block w-full text-gray-600 text-sm font-semibold" htmlFor="crmFile">
+                                    ID USER
+                                </label>
+                                <div className=' w-full'>
+                                    <select className="p-[9px] outline-none rounded border w-full border-[#0080ff] hover:bg-[#0080ff] hover:text-white" id="mySelect" value={idValue} onChange={handleSelectChange}>
+                                        <option value="">ALL</option>
+                                        {Array.from(new Set(listData.map((data: any) => data['userId'])))
+                                            .sort()
+                                            .map((uniqueUserId: string, index: number) => (
+                                                <option key={index} value={uniqueUserId}>
+                                                    {uniqueUserId}
+                                                </option>
+                                            ))
+                                        }
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div className="mb-4">
-                            <label className="block text-gray-600 text-sm font-bold mb-2" htmlFor="crmFile">
-                                Ngày kết thúc
-                            </label>
-                            <div className='flex items-center justify-between w-full'>
-                                <input
-                                    type="date"
-                                    id="endDate"
-                                    name="endDate"
-                                    onChange={handleChangeEndDate}
-                                    className="w-full px-3 py-2 border border-gray-300 text-black rounded"
-                                    multiple />
+
+                            <div className=" w-[35%] flex items-center justify-center ml-5">
+                                <label className=" w-full block text-gray-600 text-sm font-semibold " htmlFor="crmFile">
+                                    Ngày bắt đầu
+                                </label>
+                                <div className=' w-full'>
+                                    <input
+                                        type="date"
+                                        id="startDate"
+                                        name="startDate"
+                                        onChange={handleChangeStartDate}
+                                        className="w-full px-3 py-2 hover:bg-[#0080ff] hover:text-white"
+                                        multiple />
+                                </div>
+                            </div>
+                            <div className=" w-[35%] flex items-center justify-center ml-5">
+                                <label className="w-full block text-gray-600 text-sm font-semibold" htmlFor="crmFile">
+                                    Ngày kết thúc
+                                </label>
+                                <div className='w-full'>
+                                    <input
+                                        type="date"
+                                        id="endDate"
+                                        name="endDate"
+                                        onChange={handleChangeEndDate}
+                                        className="w-full px-3 py-2 hover:bg-[#0080ff] hover:text-white"
+                                        multiple />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -219,30 +224,46 @@ const Crm = () => {
                                     <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>{crm['startDate']}</td>
                                     <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>{crm['endDate']}</td>
                                     {isAdmin ? <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>
-                                        {crm['status'] === 1 ? <span className='relative rounded-[30px] py-1 pl-[15px] pr-[3px] bg-[#cff6dd] text-[#1fa750] flex items-center justify-center
+                                        {crm['status'] === 1 ? <span className='relative w-[80px] rounded-[30px] py-1 pl-[15px] pr-[3px] bg-[#cff6dd] text-[#1fa750] flex items-center justify-center
                 after:absolute after:top-[9px] after:left-[7px] after:w-[12px] after:h-[12px] after:content-[""] after:rounded-[50%] after:bg-[#23bd5a]'>
                                             Active
                                         </span>
                                             :
                                             <span className='relative rounded-[30px] py-1 pl-[15px] pr-[3px] bg-[#f1b3b3] text-[#fe4d4d] flex items-center justify-center
-                  after:absolute after:top-[9px] after:left-[7px] after:w-[12px] after:h-[12px] after:content-[""] after:rounded-[50%] after:bg-[#fe4d4d]'>
+                after:absolute after:top-[9px] after:left-[7px] after:w-[12px] after:h-[12px] after:content-[""] after:rounded-[50%] after:bg-[#fe4d4d]'>
                                                 Block
                                             </span>
                                         }
                                     </td> : ' '}
-                                    <td className='border-none p-[30px] text-sm font-medium text-gray-600 align-middle'>
-                                        <div className="flex justify-center items-center h-auto space-x-4">
-                                            <button onClick={() => { handleOpen(crm['id'], 'detail') }} className="w-[80px] bg-blue-500 text-white font-bold py-1 px-4 rounded">
-                                                Chi tiết
-                                            </button>
-                                            <button onClick={() => { handleOpen(crm['id'], 'edit') }} className="bg-yellow-500 text-white font-bold py-1 px-4 rounded">
-                                                Sửa
-                                            </button>
-                                            {isAdmin ? <button onClick={() => handleOpen(crm['id'], 'delete')} className="bg-red-500 text-white font-bold py-1 px-4 rounded">
-                                                Xóa
-                                            </button> : ' '}
-                                        </div>
-                                    </td>
+                                    {crm['status'] === 1 ?
+                                        <td className='border-none p-[30px] text-sm font-medium text-gray-500 align-middle'>
+                                            <div className="flex justify-center items-center h-auto gap-2">
+                                                <button onClick={() => { handleOpen(crm['id'], 'detail') }} className="bg-white text-gray-700 border border-blue-500 font-semibold w-[90px] text-sm py-[6px] px-5 rounded hover:bg-blue-500 hover:text-white transition duration-200">
+                                                    Chi tiết
+                                                </button>
+                                                <button onClick={() => { handleOpen(crm['id'], 'edit') }} className="bg-white text-gray-700 border border-yellow-500 font-semibold text-sm py-[6px] px-5 rounded hover:bg-yellow-500 hover:text-white transition duration-200">
+                                                    Sửa
+                                                </button>
+                                                {isAdmin ? <button onClick={() => { handleOpen(crm['id'], 'delete') }} className="bg-white text-gray-700 border border-red-500 font-semibold text-sm py-[6px] px-5 rounded hover:bg-red-500 hover:text-white transition duration-200">
+                                                    Xóa
+                                                </button> : ' '}
+                                            </div>
+                                        </td>
+                                        :
+                                        <td className='border-none p-[30px] text-sm font-medium text-gray-500 align-middle'>
+                                            <div className="flex justify-center items-center h-auto gap-2">
+                                                <button disabled onClick={() => { handleOpen(crm['id'], 'detail') }} className="bg-white text-gray-700 border border-blue-500 font-semibold w-[90px] text-sm py-[6px] px-5 rounded opacity-60 cursor-not-allowed">
+                                                    Chi tiết
+                                                </button>
+                                                <button disabled onClick={() => { handleOpen(crm['id'], 'edit') }} className="bg-white text-gray-700 border border-yellow-500 font-semibold text-sm py-[6px] px-5 rounded opacity-60 cursor-not-allowed">
+                                                    Sửa
+                                                </button>
+                                                {isAdmin ? <button disabled onClick={() => { handleOpen(crm['id'], 'delete') }} className="bg-white text-gray-700 border border-red-500 font-semibold text-sm py-[6px] px-5 rounded opacity-60 cursor-not-allowed">
+                                                    Xóa
+                                                </button> : ' '}
+                                            </div>
+                                        </td>
+                                    }
                                 </tr>
                             )) : <tr><td>loading...</td></tr>}
                         </tbody>
